@@ -1,5 +1,3 @@
-// English
-
 import { Locale } from "../locale";
 export class en implements Locale {
   atX0SecondsPastTheMinuteGt20(): string|null {
@@ -20,7 +18,7 @@ export class en implements Locale {
   }
 
   anErrorOccuredWhenGeneratingTheExpressionD() {
-    return "An error occured when generating the expression description.  Check the cron expression syntax.";
+    return "An error occurred when generating the expression description. Check the cron expression syntax.";
   }
   everyMinute() {
     return "every minute";

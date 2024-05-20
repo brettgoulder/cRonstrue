@@ -26,7 +26,7 @@ export class CronParser {
    */
   parse(): string[] {
     let parsed: string[];
-    
+
     var expression = this.expression ?? '';
 
     if (expression.startsWith('@')) {
@@ -191,6 +191,11 @@ export class CronParser {
       expressionParts[3] = "*";
     }
 
+    // Convert DOM '$' to 'L' (last day of the month)
+    if (expressionParts[3] == "$") {
+      expressionParts[3] = "L";
+    }
+
     if (
       expressionParts[3].indexOf("W") > -1 &&
       (expressionParts[3].indexOf(",") > -1 || expressionParts[3].indexOf("-") > -1)
@@ -332,7 +337,7 @@ export class CronParser {
 
   protected assertNoInvalidCharacters(partDescription: string, expression: string) {
     // No characters other than 'L' or 'W' should remain after normalization
-    let invalidChars = expression.match(/[A-KM-VX-Z]+/gi);
+    let invalidChars = expression.match(/[A-KM-VX-Z$]+/gi);
     if (invalidChars && invalidChars.length) {
       throw new Error(`${partDescription} part contains invalid values: '${invalidChars.toString()}'`);
     }
